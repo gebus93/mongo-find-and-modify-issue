@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group 'pl.thinkandcode.samples'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+//    implementation 'org.mongodb:mongodb-driver-sync:4.9.0'
+    implementation 'org.mongodb:mongodb-driver-sync:4.8.2'
+
+    // test dependencies
+    testImplementation "org.testcontainers:mongodb:1.17.6"
+    testImplementation 'org.assertj:assertj-core:3.24.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
