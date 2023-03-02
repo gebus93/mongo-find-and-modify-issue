@@ -14,6 +14,11 @@ Everything seems to work on mongodb 4, but mongodb 5 and 6 logs many write confl
 
 ## Running tests
 
+### Prerequisites
+* JDK 17
+* Docker v17.09 or newer required by [testcontainers](https://www.testcontainers.org/supported_docker_environment/)
+* Privileges to run docker containers without "sudo". For example `docker run hello-world`. 
+
 ### Linux / MacOS
 
 ```bash
