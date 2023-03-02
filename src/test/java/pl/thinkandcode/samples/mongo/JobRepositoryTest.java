@@ -4,6 +4,8 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.utility.DockerImageName;
 
@@ -23,6 +25,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @see <a href="https://www.testcontainers.org/modules/databases/mongodb/">testcontainers - MongoDB</a>
  */
 class JobRepositoryTest {
+    private static final Logger mongoContainerLogs = LoggerFactory.getLogger("mongodb");
+
     @Test
     @DisplayName("test mongo 4.4.19")
     void testMongo4() throws Exception {
@@ -59,7 +63,10 @@ class JobRepositoryTest {
     private void testFindOneAndUpdate(MongoDBContainer mongoDBContainer, MongoClient mongoClient) throws Exception {
         // setup logs collector
         var logsBuilder = new StringBuilder();
-        mongoDBContainer.followOutput(log -> logsBuilder.append(log.getUtf8String()));
+        mongoDBContainer.followOutput(l -> {
+            logsBuilder.append(l.getUtf8String());
+            mongoContainerLogs.info(l.getUtf8String());
+        });
 
         // initialize repository and insert data set
         var repository = new JobRepository("jobs", "test", mongoClient);
