@@ -1,5 +1,7 @@
 # MongoDB: findOneAndUpdate / findAndModify issue
 
+**Related issue:** https://jira.mongodb.org/browse/SERVER-74551
+
 After upgrading mongodb from version 4.4.x to 5.0.14 in a company I'm working for, we have found thousands of errors in our logs. All of them refers to the same issue `Plan executor error during findAndModify`.
 
 In our case, we use `findAndModify` in a spring-boot application to take first pending job from a queue. This operation is executed concurrently on many app instances (5-10 threads each).
